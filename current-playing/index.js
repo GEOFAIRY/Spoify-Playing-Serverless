@@ -97,22 +97,29 @@ async function getrecent(res) {
         })
 
         res = {
-            album: {
-                name: spotify_res_recent.data.items[0].track.album.name,
-                image: spotify_res_recent.data.items[0].track.album.images[0]
-                    .url,
-                link: spotify_res_recent.data.items[0].track.album.external_urls
-                    .spotify,
+            status: 200,
+            body: {
+                album: {
+                    name: spotify_res_recent.data.items[0].track.album.name,
+                    image: spotify_res_recent.data.items[0].track.album
+                        .images[0].url,
+                    link: spotify_res_recent.data.items[0].track.album
+                        .external_urls.spotify,
+                },
+                artist: {
+                    name: spotify_res_recent.data.items[0].track.artists[0]
+                        .name,
+                    link: spotify_res_recent.data.items[0].track.artists[0]
+                        .external_urls.spotify,
+                },
+                track: {
+                    name: spotify_res_recent.data.items[0].track.name,
+                    link: spotify_res_recent.data.items[0].track.external_urls
+                        .spotify,
+                },
             },
-            artist: {
-                name: spotify_res_recent.data.items[0].track.artists[0].name,
-                link: spotify_res_recent.data.items[0].track.artists[0]
-                    .external_urls.spotify,
-            },
-            track: {
-                name: spotify_res_recent.data.items[0].track.name,
-                link: spotify_res_recent.data.items[0].track.external_urls
-                    .spotify,
+            headers: {
+                'Content-Type': 'application/json',
             },
         }
     } catch (error) {
@@ -127,7 +134,7 @@ module.exports = async function (context, req) {
         // do the thing
         var res = await getPlaying()
         context.res = {
-            body: res
+            body: res,
         }
     } catch (error) {
         context.res = {
