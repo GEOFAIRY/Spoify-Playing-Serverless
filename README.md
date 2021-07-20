@@ -1,6 +1,6 @@
 # Spoify-Playing-Serverless
 
-Express RESTful API to be serverless azure function to supply now playing from a given spotify user in JSON format.
+Serverless azure function to supply now playing from a given spotify user in JSON format.
 
 # Setup
 
@@ -35,9 +35,17 @@ curl -X POST -H "Content-Type: application/x-www-form-urlencoded" -H "Authorizat
 
 ## .env config
 
-Create a .env in the format of:
+Create the file ```local.settings.json``` in the format of:
 ```
-spotify_client_id=<<application client id>>
-spotify_client_secret=<<application client secret>>
-spotify_refresh_token=<<user generated refresh token>>
+{
+  "IsEncrypted": false,
+  "Values": {
+    "spotify_client_id": "<<application client id>>",
+    "spotify_client_secret": "<<application client secret>>",
+    "spotify_refresh_token": "<<user generated refresh token>>",
+    "FUNCTIONS_WORKER_RUNTIME": "node"
+  }
+}
 ```
+
+Refer to https://docs.microsoft.com/en-us/azure/azure-functions/create-first-function-vs-code-node on how to build and deploy this project locallly or on azure.
